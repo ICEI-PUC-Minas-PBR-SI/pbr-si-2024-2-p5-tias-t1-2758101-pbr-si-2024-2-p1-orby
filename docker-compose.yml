@@ -8,15 +8,15 @@ services:
     restart: always
 
   api:
-    container_name: api-orby
-    build: ./node-api
+    container_name: orby-api
+    build: ./orby-api
     restart: always
     ports:
       - 5002:5002
     depends_on:
       - mongo
     env_file:
-      - ./node-api/.env
+      - ./orby-api/.env
 
 volumes:
   mongodb-volume:

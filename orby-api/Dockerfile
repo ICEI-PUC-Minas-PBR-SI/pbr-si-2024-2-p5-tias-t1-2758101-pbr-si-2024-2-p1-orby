@@ -1,6 +1,6 @@
 FROM node:latest
 
-WORKDIR /node-api
+WORKDIR /orby-api
 
 COPY . .
 
