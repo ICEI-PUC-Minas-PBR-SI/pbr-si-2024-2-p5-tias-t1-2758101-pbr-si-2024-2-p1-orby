@@ -1,0 +1,22 @@
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-volume:/data/db
+    restart: always
+
+  api:
+    container_name: api-orby
+    build: ./node-api
+    restart: always
+    ports:
+      - 5002:5002
+    depends_on:
+      - mongo
+    env_file:
+      - ./node-api/.env
+
+volumes:
+  mongodb-volume:
