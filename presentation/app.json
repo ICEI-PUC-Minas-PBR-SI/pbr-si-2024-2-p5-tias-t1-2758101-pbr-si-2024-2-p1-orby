@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "orby",
+    "slug": "orby",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/orby_icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/orby_splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#fff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/orby_icon.png",
+        "backgroundColor": "#fff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-font"
+    ]
+  }
+}
