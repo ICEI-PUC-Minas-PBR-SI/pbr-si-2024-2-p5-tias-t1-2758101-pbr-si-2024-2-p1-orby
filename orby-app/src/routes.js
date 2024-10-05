@@ -5,7 +5,7 @@ import { getHeaderTitle } from "@react-navigation/elements";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "./assets/colors";
 import { SCREENS } from "./sreens";
-import { Header } from "./components/orby_default_header/header";
+import { DefaultHeader } from "./components/orby-header/DefaultHeader";
 
 const Tab = createBottomTabNavigator();
 
@@ -74,7 +74,7 @@ export function OrbyInitialStack() {
         component={SCREENS.login.component}
         options={{
           header: ({ navigation }) => {
-            return <Header leftButton={navigation.goBack} />;
+            return <DefaultHeader leftButton={navigation.goBack} />;
           },
         }}
       />
