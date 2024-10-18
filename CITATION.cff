@@ -1,0 +1,29 @@
+cff-version: 1.0.1
+message: Please cite this software using these metadata.
+title:
+authors:
+  - family-names: Henrique Martins da Rocha
+    given-names:
+  - family-names: Rodrigo Teixeira Lucas
+    given-names:
+  - family-names: Thiago da Silva de Oliveira
+    given-names:
+  - family-names: Ivan Junior Ferreira Bragança
+    given-names:
+  - family-names:
+    given-names:
+  - family-names:
+    given-names:
+  - family-names:
+    given-names:
+  - name-suffix: Professor Cleia Marcia Gomes Amaral
+    affiliation: PUC Minas
+    family-names:
+    given-names:
+keywords:
+  -
+  -
+repository-code:
+license: CC-BY-4.0
+version: 1.0.0
+date-released: 2023-06-30
