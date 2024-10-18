@@ -1,29 +1,30 @@
-import { StatusBar } from "expo-status-bar";
-import { COMMON_STYLES } from "../../assets/common_styles";
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import { signin } from "../../services/authService";
 import OrbyInput from "../../components/orby_input/OrbyInput";
 import OrbyButton from "../../components/orby-button/OrbyButton";
 import styles from "./login.styles";
+import OrbyLogo from "../../components/orby_logo/OrbyLogo";
 
-export function Login({ navigation, props }) {
+export function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleLogin = () => {};
+  const handleLogin = async () => {
+    try {
+      const userData = { email, password };
+      await signin(userData);
+      navigation.navigate("Home");
+    } catch (error) {
+      Alert.alert("Erro", "Falha ao realizar login. Tente novamente.");
+    }
+  };
 
   return (
     <View style={styles.container}>
-      {/* Logo */}
-      <View style={styles.logoContainer}>
-        <Image source={require("../../../assets/orby_logo.png")} />
-        <Text style={COMMON_STYLES.boldHeadline}>Login</Text>
-        <StatusBar style="auto" />
-      </View>
-
-      {/* Formulário de login */}
+      <OrbyLogo title="Login" />
 
       <OrbyInput
         value={email}
@@ -53,7 +54,6 @@ export function Login({ navigation, props }) {
         <Text style={styles.forgotPasswordText}>Esqueceu a senha?</Text>
       </TouchableOpacity>
 
-      {/* Opções de login com Google/Facebook */}
       <View style={styles.socialLoginContainer}>
         <TouchableOpacity style={styles.socialButtonGoogle}>
           <FontAwesome name="google" size={20} color="white" />
@@ -65,8 +65,11 @@ export function Login({ navigation, props }) {
         </TouchableOpacity>
       </View>
 
-      {/* Link para cadastro */}
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("signup");
+        }}
+      >
         <Text style={styles.signUpText}>
           Não tem uma conta?{" "}
           <Text style={styles.signUpLink}>Cadastre-se aqui</Text>

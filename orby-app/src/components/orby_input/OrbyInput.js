@@ -10,6 +10,7 @@ const OrbyInput = ({
   type = "text",
   mask = null,
   keyboardType = "default",
+  customStyle = {},
   ...props
 }) => {
   const isPassword = type === "password";
@@ -22,7 +23,7 @@ const OrbyInput = ({
           options={mask.options}
           value={value}
           onChangeText={onChangeText}
-          style={styles.input}
+          style={[styles.input, customStyle]}
           placeholder={placeholder}
           placeholderTextColor="#aaa"
           keyboardType={keyboardType}
@@ -31,7 +32,7 @@ const OrbyInput = ({
         />
       ) : (
         <TextInput
-          style={styles.input}
+          style={[styles.input, customStyle]}
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 25,
-    marginVertical: 16,
+    marginVertical: 12,
   },
 });
 
