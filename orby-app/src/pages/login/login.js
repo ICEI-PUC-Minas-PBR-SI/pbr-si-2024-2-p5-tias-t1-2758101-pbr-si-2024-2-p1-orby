@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { signin } from "../../services/authService";
+import { signin, tokenSignin } from "../../services/authService";
+import { getToken } from "../../services/tokenService";
 import OrbyInput from "../../components/orby_input/OrbyInput";
 import OrbyButton from "../../components/orby-button/OrbyButton";
 import styles from "./login.styles";
@@ -12,13 +13,27 @@ export function Login({ navigation }) {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = await getToken();
+        await tokenSignin(token);
+        navigation.navigate("Home");
+      } catch (error) {
+        console.error("Erro", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handleLogin = async () => {
     try {
       const userData = { email, password };
       await signin(userData);
       navigation.navigate("Home");
     } catch (error) {
-      Alert.alert("Erro", "Falha ao realizar login. Tente novamente.");
+      console.error("Erro", "Falha ao realizar login. Tente novamente.");
     }
   };
 
@@ -48,7 +63,11 @@ export function Login({ navigation }) {
         <Text style={styles.rememberMeText}>Lembrar-me</Text>
       </View>
 
-      <OrbyButton onPress={handleLogin} title="Login" />
+      <OrbyButton
+        onPress={handleLogin}
+        title="Login"
+        customStyle={styles.button}
+      />
 
       <TouchableOpacity>
         <Text style={styles.forgotPasswordText}>Esqueceu a senha?</Text>

@@ -1,6 +1,7 @@
 import { Home } from "./pages/home";
 import { Login } from "./pages/login/login";
 import { News } from "./pages/news/news";
+import { Form } from "./pages/form/form";
 import Signup from "./pages/signup/signup";
 
 export const SCREENS = {
@@ -30,7 +31,7 @@ export const SCREENS = {
   },
   form: {
     name: "form",
-    component: Home,
+    component: Form,
     icon: "document-text",
     outlinedIcon: "document-text-outline",
   },

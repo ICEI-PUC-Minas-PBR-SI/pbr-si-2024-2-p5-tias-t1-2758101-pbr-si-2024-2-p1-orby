@@ -2,9 +2,9 @@ import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { COLORS } from "../../assets/colors";
 
-const OrbyButton = ({ onPress, title }) => {
+const OrbyButton = ({ onPress, title, customStyle = {} }) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity style={[styles.button, customStyle]} onPress={onPress}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     padding: 12,
     borderRadius: 25,
-    marginTop: 24,
     marginBottom: 12,
     alignItems: "center",
   },

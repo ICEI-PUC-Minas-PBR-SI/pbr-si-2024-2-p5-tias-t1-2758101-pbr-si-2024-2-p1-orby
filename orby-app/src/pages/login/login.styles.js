@@ -7,6 +7,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 24,
   },
+  button: {
+    marginTop: 24,
+  },
   rememberMeContainer: {
     flexDirection: "row",
     alignItems: "center",

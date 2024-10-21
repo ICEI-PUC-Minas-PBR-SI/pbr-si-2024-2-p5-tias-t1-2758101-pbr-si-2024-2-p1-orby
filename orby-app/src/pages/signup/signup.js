@@ -64,7 +64,11 @@ const Signup = ({ navigation }) => {
         type="password"
       />
 
-      <OrbyButton onPress={handleSignup} title="Cadastrar" />
+      <OrbyButton
+        onPress={handleSignup}
+        title="Cadastrar"
+        customStyle={styles.button}
+      />
 
       <TouchableOpacity
         onPress={() => {
