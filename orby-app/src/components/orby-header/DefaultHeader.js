@@ -4,6 +4,7 @@ import React from "react";
 import { COLORS } from "../../assets/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
 
 export function Header(prop) {
   return (
