@@ -17,6 +17,15 @@ services:
       - mongo
     env_file:
       - ./orby-api/.env
+      
+  nginx:
+    container_name: nginx-wallet
+    build: ./nginx
+    ports:
+      - 80:80
+    depends_on:
+      - mongo
+      - api
 
 volumes:
   mongodb-volume:
