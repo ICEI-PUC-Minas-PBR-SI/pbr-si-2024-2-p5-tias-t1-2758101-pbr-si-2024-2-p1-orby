@@ -1,43 +1,76 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { signin } from "../../services/authService";
 import OrbyInput from "../../components/orby_input/OrbyInput";
 import OrbyButton from "../../components/orby-button/OrbyButton";
 import styles from "./login.styles";
 import OrbyLogo from "../../components/orby_logo/OrbyLogo";
+import { TextInputMask } from "react-native-masked-text";
 
 export function Login({ navigation }) {
-  const [email, setEmail] = useState("");
+  const [cpf, setCPF] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(""); // Novo campo de confirmação
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleLogin = async () => {
+    if (password !== confirmPassword) {
+      Alert.alert("Erro", "As senhas não coincidem!");
+      return;
+    }
+    else{
+        clearFields();}
+
     try {
-      const userData = { email, password };
+      const userData = { cpf, password };
       await signin(userData);
       navigation.navigate("Home");
+      clearFields(); // Limpa os campos após o login
     } catch (error) {
       Alert.alert("Erro", "Falha ao realizar login. Tente novamente.");
     }
   };
 
+  const clearFields = () => {
+    setCPF("");
+    setPassword("");
+    setConfirmPassword("");
+  };
+
   return (
     <View style={styles.container}>
       <OrbyLogo title="Login" />
-
-      <OrbyInput
-        value={email}
-        onChangeText={setEmail}
-        placeholder="E-mail"
-        keyboardType="email-address"
+        <View style={styles.TextInputMask}>
+      <TextInputMask
+        type={"cpf"}
+        value={cpf}
+        onChangeText={setCPF}
+        placeholder="CPF"
+        keyboardType="numeric"
+        autoFocus
       />
+      </View>
+
       <OrbyInput
         value={password}
         onChangeText={setPassword}
         placeholder="Senha"
         type="password"
+        maxLength={12} // Limite de caracteres
+        autoFocus
       />
+
+      <OrbyInput
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+        placeholder="Confirmar Senha"
+        type="password"
+        maxLength={12} // Limite de caracteres
+        autoFocus
+      />
+
+
 
       <View style={styles.rememberMeContainer}>
         <TouchableOpacity onPress={() => setRememberMe(!rememberMe)}>

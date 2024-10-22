@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { COLORS } from "../../assets/colors";
 
 const styles = StyleSheet.create({
   container: {
@@ -6,6 +7,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "center",
     padding: 24,
+  },
+ TextInputMask: {
+    backgroundColor: COLORS.gray_background,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    marginVertical: 12,
   },
   rememberMeContainer: {
     flexDirection: "row",
@@ -31,7 +39,7 @@ const styles = StyleSheet.create({
   },
   socialLoginContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     marginVertical: 20,
   },
   socialButtonGoogle: {
