@@ -1,8 +1,11 @@
-import { Home } from "./pages/home";
+import { Home } from "./pages/home/home";
 import { Login } from "./pages/login/login";
 import { News } from "./pages/news/news";
 import { Form } from "./pages/form/form";
 import Signup from "./pages/signup/signup";
+import { Forum } from "./pages/forum/forum";
+import { MaintenceScreen } from "./pages/maintence/maintence";
+import { Profile } from "./pages/profile/profile";
 
 export const SCREENS = {
   login: {
@@ -37,20 +40,26 @@ export const SCREENS = {
   },
   ranking: {
     name: "ranking",
-    component: Home,
+    component: MaintenceScreen,
     icon: "trophy",
     outlinedIcon: "trophy-outline",
   },
   map: {
     name: "map",
-    component: Home,
+    component: MaintenceScreen,
     icon: "location",
     outlinedIcon: "location-outline",
   },
   profile: {
     name: "profile",
-    component: Home,
+    component: Profile,
     icon: "person",
     outlinedIcon: "person-outline",
+  },
+  forum: {
+    name: "forum",
+    component: Forum,
+    icon: null,
+    outlinedIcon: null,
   },
 };

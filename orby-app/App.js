@@ -1,6 +1,7 @@
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { OrbyInitialStack } from "./src/routes";
 import { COLORS } from "./src/assets/colors";
+import { AuthProvider } from "./src/pages/AuthContext";
 
 const MyTheme = {
   ...DefaultTheme,
@@ -12,8 +13,10 @@ const MyTheme = {
 
 export default function App() {
   return (
-    <NavigationContainer theme={MyTheme}>
-      <OrbyInitialStack />
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer theme={MyTheme}>
+        <OrbyInitialStack />
+      </NavigationContainer>
+    </AuthProvider>
   );
 }
