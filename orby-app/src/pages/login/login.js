@@ -1,37 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { signin, tokenSignin } from "../../services/authService";
-import { getToken } from "../../services/tokenService";
+import { signin } from "../../services/authService";
 import OrbyInput from "../../components/orby_input/OrbyInput";
 import OrbyButton from "../../components/orby-button/OrbyButton";
 import styles from "./login.styles";
 import OrbyLogo from "../../components/orby_logo/OrbyLogo";
+import { useAuth } from "../AuthContext";
 
 export function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = await getToken();
-        await tokenSignin(token);
-        navigation.navigate("Home");
-      } catch (error) {
-        console.error("Erro", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const { setIsLoggedIn } = useAuth();
 
   const handleLogin = async () => {
     try {
       const userData = { email, password };
       await signin(userData);
-      navigation.navigate("Home");
+      setIsLoggedIn(true);
     } catch (error) {
       console.error("Erro", "Falha ao realizar login. Tente novamente.");
     }
