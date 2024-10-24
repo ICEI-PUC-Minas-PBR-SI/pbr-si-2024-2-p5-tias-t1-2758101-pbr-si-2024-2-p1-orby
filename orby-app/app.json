@@ -1,24 +1,26 @@
 {
   "expo": {
-    "name": "orby",
-    "slug": "orby",
+    "name": "Orby",
+    "slug": "Orby",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/orby_icon.png",
+    "icon": "./assets/orby_default_icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/orby_splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#fff"
+      "backgroundColor": "#FFFFFF"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/orby_icon.png",
-        "backgroundColor": "#fff"
-      }
+        "foregroundImage": "./assets/ic_launcher_foreground.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.project.orby"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -26,6 +28,11 @@
     "plugins": [
       "expo-font",
       "expo-secure-store"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e862a961-1e7d-4228-8e04-f9abcdd46efe"
+      }
+    }
   }
 }
