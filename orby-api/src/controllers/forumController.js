@@ -25,9 +25,23 @@ async function changeThread(req, res) {
   }
 }
 
-async function findAllThreads(req, res) {
+async function deleteThread(req, res) {
+  const { _id: userId } = res.locals.user;
+  const { threadId } = req.params;
+
   try {
-    const threads = await forumService.findAllThreads();
+    const message = await forumService.deleteThread(threadId, userId);
+    return res.status(201).send(message);
+  } catch (err) {
+    return res.status(409).send(err.message);
+  }
+}
+
+async function findAllThreads(req, res) {
+  const { _id: userId } = res.locals.user;
+
+  try {
+    const threads = await forumService.findAllThreads(userId);
     return res.send(threads);
   } catch (err) {
     return res.status(500).send(err.message);
@@ -62,6 +76,7 @@ async function findAllByThread(req, res) {
 export default {
   createThread,
   changeThread,
+  deleteThread,
   findAllThreads,
   createReplie,
   findAllByThread,

@@ -6,20 +6,35 @@ async function createThread(data) {
 }
 
 async function changeThread(threadId, data) {
-  return await ThreadSchema.findOneAndUpdate(
-    { _id: threadId }, // Filtro para encontrar a thread
-    data, // Dados de atualização
-    { new: true, runValidators: true } // Opções para retornar o novo documento e validar
-  );
+  return await ThreadSchema.findOneAndUpdate({ _id: threadId }, data, {
+    new: true,
+    runValidators: true,
+  });
 }
 
-async function findAllThreads() {
+async function deleteThread(threadId, userId) {
+  const thread = await ThreadSchema.findOne({ _id: threadId });
+
+  if (!thread) {
+    throw new Error("Thread não encontrada.");
+  }
+
+  if (thread.userId.toString() !== userId.toString()) {
+    throw new Error("Você não tem permissão para deletar esta thread.");
+  }
+
+  await ThreadSchema.deleteOne({ _id: threadId });
+  return { message: "Thread deletada com sucesso." };
+}
+
+async function findAllThreads(userId) {
   const threads = await ThreadSchema.find().populate("userId", "name");
 
   return threads.map((thread) => ({
     ...thread.toObject(),
     userName: thread.userId.name,
     userId: undefined,
+    allowDelete: thread.userId._id.toString() === userId.toString(),
   }));
 }
 
@@ -56,6 +71,7 @@ async function findAllByThread(threadId, userId) {
 export default {
   createThread,
   changeThread,
+  deleteThread,
   findAllThreads,
   createReplie,
   findAllByThread,
