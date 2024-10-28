@@ -61,6 +61,26 @@ export const changeTopic = async (topicId, topicData) => {
   }
 };
 
+export const deleteTopic = async (topicId) => {
+  try {
+    const token = await getToken();
+    if (!token) {
+      throw new Error("Token não encontrado");
+    }
+
+    const response = await api.delete(`/forum/${topicId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao atualizar tópico:", error);
+    throw error;
+  }
+};
+
 export const createReplie = async (threadId, replieData) => {
   try {
     const token = await getToken();
