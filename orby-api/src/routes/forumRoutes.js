@@ -24,6 +24,8 @@ forumRouter.put(
   forumController.changeThread
 );
 
+forumRouter.delete("/forum/:threadId", forumController.deleteThread);
+
 forumRouter.get("/forum/threads", forumController.findAllThreads);
 
 forumRouter.post(
