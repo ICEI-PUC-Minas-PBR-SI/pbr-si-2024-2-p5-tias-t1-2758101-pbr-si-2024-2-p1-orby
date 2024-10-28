@@ -39,7 +39,7 @@ export const signup = async (userData) => {
 
 export const saveLoginState = async (isLoggedIn) => {
   try {
-    SecureStore.setItemAsync("isLoggedIn", JSON.stringify(isLoggedIn));
+    await SecureStore.setItemAsync("isLoggedIn", JSON.stringify(isLoggedIn));
   } catch (error) {
     console.error("Erro ao salvar estado de login");
     throw error;

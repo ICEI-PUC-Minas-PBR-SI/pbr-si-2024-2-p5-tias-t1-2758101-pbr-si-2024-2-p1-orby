@@ -6,12 +6,11 @@ import {
 } from "../services/authService";
 import { getToken } from "../services/tokenService";
 
-// Criando o contexto
 const AuthContext = createContext();
 
-// Provider que fornecerá o estado de autenticação
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,14 +27,15 @@ export const AuthProvider = ({ children }) => {
     const loadAuthState = async () => {
       try {
         const storedLoginState = await getLoginState();
-        if (storedLoginState !== null) {
-          setIsLoggedIn(JSON.parse(storedLoginState));
-        } else {
-          setIsLoggedIn(false); // Caso não haja valor salvo, o usuário não está logado
-        }
+        const parsedLoginState = storedLoginState
+          ? JSON.parse(storedLoginState)
+          : false;
+        setIsLoggedIn(parsedLoginState);
       } catch (error) {
         console.error("Erro ao carregar o estado de login:", error);
         setIsLoggedIn(false);
+      } finally {
+        setHasLoaded(true);
       }
     };
 
@@ -44,18 +44,17 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const saveAuthState = async () => {
-      try {
-        if (isLoggedIn !== null) {
-          // Evita salvar null no início
+      if (hasLoaded) {
+        try {
           await saveLoginState(isLoggedIn);
+        } catch (error) {
+          console.error("Erro ao salvar o estado de login:", error);
         }
-      } catch (error) {
-        console.error("Erro ao salvar o estado de login:", error);
       }
     };
 
     saveAuthState();
-  }, [isLoggedIn]);
+  }, [isLoggedIn, hasLoaded]);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
@@ -64,5 +63,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Hook para acessar o contexto de autenticação
 export const useAuth = () => useContext(AuthContext);

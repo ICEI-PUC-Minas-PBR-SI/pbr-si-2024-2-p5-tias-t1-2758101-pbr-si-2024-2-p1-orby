@@ -2,6 +2,7 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { OrbyInitialStack } from "./src/routes";
 import { COLORS } from "./src/assets/colors";
 import { AuthProvider } from "./src/pages/AuthContext";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const MyTheme = {
   ...DefaultTheme,
@@ -13,10 +14,12 @@ const MyTheme = {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <NavigationContainer theme={MyTheme}>
-        <OrbyInitialStack />
-      </NavigationContainer>
-    </AuthProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AuthProvider>
+        <NavigationContainer theme={MyTheme}>
+          <OrbyInitialStack />
+        </NavigationContainer>
+      </AuthProvider>
+    </GestureHandlerRootView>
   );
 }

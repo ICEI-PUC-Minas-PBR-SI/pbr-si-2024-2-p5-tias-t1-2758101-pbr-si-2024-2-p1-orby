@@ -6,6 +6,7 @@ import Signup from "./pages/signup/signup";
 import { Forum } from "./pages/forum/forum";
 import { MaintenceScreen } from "./pages/maintence/maintence";
 import { Profile } from "./pages/profile/profile";
+import { Topic } from "./pages/topic/topic";
 
 export const SCREENS = {
   login: {
@@ -59,6 +60,12 @@ export const SCREENS = {
   forum: {
     name: "forum",
     component: Forum,
+    icon: null,
+    outlinedIcon: null,
+  },
+  topic: {
+    name: "topic",
+    component: Topic,
     icon: null,
     outlinedIcon: null,
   },

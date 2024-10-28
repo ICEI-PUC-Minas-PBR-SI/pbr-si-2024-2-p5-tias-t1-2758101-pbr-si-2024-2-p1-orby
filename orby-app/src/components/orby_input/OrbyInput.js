@@ -10,7 +10,9 @@ const OrbyInput = ({
   type = "text",
   mask = null,
   keyboardType = "default",
+  isMultiline = false,
   customStyle = {},
+  maxLength = 400,
   ...props
 }) => {
   const isPassword = type === "password";
@@ -28,6 +30,8 @@ const OrbyInput = ({
           placeholderTextColor="#aaa"
           keyboardType={keyboardType}
           secureTextEntry={isPassword}
+          multiline={isMultiline}
+          maxLength={maxLength}
           {...props}
         />
       ) : (
@@ -40,6 +44,8 @@ const OrbyInput = ({
           keyboardType={keyboardType}
           secureTextEntry={isPassword}
           autoCapitalize="none"
+          multiline={isMultiline}
+          maxLength={maxLength}
           {...props}
         />
       )}

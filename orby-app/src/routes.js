@@ -1,6 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { getHeaderTitle } from "@react-navigation/elements";
 
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "./assets/colors";
@@ -12,8 +11,6 @@ const Stack = createNativeStackNavigator();
 
 export function OrbyInitialStack() {
   const { isLoggedIn } = useAuth();
-
-  console.log(isLoggedIn);
 
   return (
     <Stack.Navigator initialRouteName="news">
@@ -28,11 +25,7 @@ export function OrbyInitialStack() {
           <Stack.Screen
             name="HomeNestedScreens"
             component={OrbyHomeStack}
-            options={{
-              header: ({ navigation }) => {
-                return <Header leftButton={navigation.goBack} />;
-              },
-            }}
+            options={{ headerShown: false }}
           />
         </Stack.Group>
       ) : (
@@ -127,7 +120,21 @@ export function OrbyHomeStack() {
         key={SCREENS.forum.name}
         name={SCREENS.forum.name}
         component={SCREENS.forum.component}
-        options={{ headerShown: false }}
+        options={{
+          header: ({ navigation }) => {
+            return <Header leftButton={navigation.goBack} />;
+          },
+        }}
+      />
+      <Stack.Screen
+        key={SCREENS.topic.name}
+        name={SCREENS.topic.name}
+        component={SCREENS.topic.component}
+        options={{
+          header: ({ navigation }) => {
+            return <Header leftButton={navigation.goBack} />;
+          },
+        }}
       />
     </Stack.Navigator>
   );
