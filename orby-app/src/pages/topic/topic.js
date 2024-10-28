@@ -128,7 +128,7 @@ export function Topic({ navigation }) {
         <Text style={styles.boldHeadline}>{topicName}</Text>
       </View>
 
-      <ScrollView>
+      <ScrollView style={styles.scrollViewContainer}>
         {replies.map((element) => (
           <OrbyReplieCard
             key={element._id}
@@ -187,5 +187,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     position: "relative",
+  },
+  scrollViewContainer: {
+    marginBottom: 16,
   },
 });

@@ -1,5 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { COLORS } from "../../assets/colors";
 
 const formatDateToBR = (isoDate) => {
   const date = new Date(isoDate);
@@ -14,10 +16,24 @@ const formatDateToBR = (isoDate) => {
   return `${day}/${month}/${year} ${hours}:${minutes}`;
 };
 
-const OrbyTopicCard = ({ title, description, date, creator }) => {
+const OrbyTopicCard = ({
+  title,
+  description,
+  date,
+  creator,
+  showDeleteOption,
+  onDelete,
+}) => {
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>{title}</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>{title}</Text>
+        {showDeleteOption ? (
+          <TouchableOpacity onPress={() => onDelete()}>
+            <Icon name="trash" size={24} color={COLORS.primary} />
+          </TouchableOpacity>
+        ) : null}
+      </View>
       <Text style={styles.description}>{description}</Text>
       <View style={styles.footer}>
         <Text style={styles.date}>Criado em: {formatDateToBR(date)}</Text>
@@ -38,6 +54,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     elevation: 2,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   title: {
     fontSize: 18,
