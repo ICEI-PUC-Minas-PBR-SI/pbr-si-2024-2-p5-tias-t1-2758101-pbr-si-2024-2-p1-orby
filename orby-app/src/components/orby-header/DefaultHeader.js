@@ -8,7 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 export function Header(prop) {
   return (
-    <SafeAreaView style={styles.header}>
+    <SafeAreaView style={styles.headerContainer}>
       {prop.leftButton != null ? (
         <TouchableOpacity onPress={prop.leftButton}>
           <Ionicons
@@ -28,9 +28,16 @@ export function Header(prop) {
 }
 
 const styles = StyleSheet.create({
-  header: {
+  headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+    backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
   header_left_button: {
     marginStart: 2,
