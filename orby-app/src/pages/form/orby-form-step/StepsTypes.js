@@ -1,7 +1,8 @@
 export const TYPES = {
   questionText: "QUESTION-TEXT",
   primaryText: "PRIMARY-TEXT",
-  optionList: "VERTICAL-OPTION-LIST",
+  optionList: "OPTION-LIST",
+  input: "INPUT",
   nextButton: "NEXT-BUTTON",
   selectableButtonGroup: "SELECTABLE-BUTTON-GROUP",
   selectableButtonInputGroup: "SELECTABLE-BUTTON-INPUT-GROUP",

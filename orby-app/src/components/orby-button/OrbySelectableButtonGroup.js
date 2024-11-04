@@ -1,99 +1,71 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import OrbyFormHandler from "../orby-form-step/OrbyFormHandler";
-import { TYPES } from "../orby-form-step/StepsTypes";
+import OrbyFormInput from "../../pages/form/orby-form-step/OrbyFormInput";
 
 const OrbySelectableButtonGroup = ({ buttons, onSelect }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [innerQuestions, setInnerQuestions] = useState([]);
+  const [selectableAnswer, setSelectableAnswer] = useState(buttons[0].label);
+  const [inputAnswer, setInputAnswer] = useState("");
 
-  const handleSelect = (index) => {
+  const handleSelect = (index, value) => {
     setSelectedIndex(index);
-    onSelect(buttons[index].label, innerQuestions);
+
+    setSelectableAnswer(value);
+
+    setCallbackValue();
   };
 
-  const handleStepQuestions = (form) => {
-    const formQuestion = buttons[selectedIndex].childOptions.find(
-      (data) => data.type === TYPES.questionText
-    );
+  const handleInput = (value) => {
+    setInputAnswer(value);
 
-    setInnerQuestions((prevInnerQuestions) => {
-      const updatedQuestions = [...prevInnerQuestions];
+    setCallbackValue();
+  };
 
-      const existingIndex = updatedQuestions.findIndex((q) => q.id === form.id);
-      if (existingIndex > -1) {
-        updatedQuestions[existingIndex] = {
-          id: formQuestion.id,
-          question: formQuestion.content,
-          answer: form.answer,
-        };
-      } else {
-        updatedQuestions.push({
-          id: form.id,
-          question: formQuestion,
-          answer: form.answer,
-        });
-      }
-
-      return updatedQuestions;
-    });
-
-    console.log(innerQuestions);
+  const setCallbackValue = () => {
+    onSelect(`${selectableAnswer}, ${inputAnswer}`);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.childContainer}>
-        {buttons.map((button, index) =>
-          button.image ? (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.button,
-                selectedIndex === index
-                  ? styles.selectedButton
-                  : styles.unselectedButton,
-              ]}
-              onPress={() => handleSelect(index)}
-            >
-              <Text style={styles.label}>{button.label}</Text>
+        {buttons.map((button, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[
+              styles.button,
+              selectedIndex === index
+                ? styles.selectedButton
+                : styles.unselectedButton,
+            ]}
+            onPress={() => handleSelect(index, button.label)}
+          >
+            {button.image ? (
               <Image source={button.image} style={styles.image} />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              key={index}
+            ) : null}
+            <Text
               style={[
-                styles.button,
+                styles.label,
                 selectedIndex === index
-                  ? styles.selectedButton
-                  : styles.unselectedButton,
+                  ? styles.selectedLabel
+                  : styles.unselectedLabel,
               ]}
-              onPress={() => handleSelect(index)}
             >
-              <Text
-                style={[
-                  styles.label,
-                  selectedIndex === index
-                    ? styles.selectedLabel
-                    : styles.unselectedLabel,
-                ]}
-              >
-                {button.label}
-              </Text>
-            </TouchableOpacity>
-          )
-        )}
+              {button.label}
+            </Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
-      <View style={styles.childOptionsContainer}>
-        {Array.isArray(buttons[selectedIndex]?.childOptions) &&
-        buttons[selectedIndex].childOptions.length > 0 ? (
-          <OrbyFormHandler
-            step={buttons[selectedIndex].childOptions}
-            setStepQuestion={handleStepQuestions}
+      {buttons[selectedIndex]?.hasChildInput && (
+        <View style={styles.childOptionsContainer}>
+          <OrbyFormInput
+            placeholder={buttons[selectedIndex].childInput.input.placeHolder}
+            label={buttons[selectedIndex].childInput.input.label}
+            type={buttons[selectedIndex].childInput.type}
+            onChangeText={handleInput}
           />
-        ) : null}
-      </View>
+        </View>
+      )}
     </View>
   );
 };

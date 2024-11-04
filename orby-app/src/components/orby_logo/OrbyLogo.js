@@ -6,7 +6,7 @@ const OrbyLogo = ({ title }) => {
   return (
     <View style={styles.logoContainer}>
       <Image source={require("../../../assets/orby_logo.png")} />
-      <Text style={COMMON_STYLES.boldHeadline}>{title}</Text>
+      {title && <Text style={COMMON_STYLES.boldHeadline}>{title}</Text>}
       <StatusBar style="auto" />
     </View>
   );
