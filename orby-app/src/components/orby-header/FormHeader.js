@@ -1,8 +1,9 @@
-import { Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
 
 import { COLORS } from "../../assets/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 export function FormHeader(prop) {
   return (
@@ -20,18 +21,20 @@ export function FormHeader(prop) {
           style={styles.header_left_button}
         />
       </TouchableOpacity>
-      <Text style={styles.headerTitle}>{title}</Text>
+      <Text style={styles.headerTitle}>{prop.title}</Text>
+      <View style={styles.spacer} />
     </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   headerContainer: {
-    backgroundColor: "#EE4D47", // Cor de fundo vermelha
+    backgroundColor: "#EE4D47",
     paddingVertical: 15,
     paddingHorizontal: 10,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   header_left_button: {
     marginStart: 2,
@@ -41,5 +44,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginLeft: 10,
+    textAlign: "center",
+  },
+  spacer: {
+    width: 32, // Adjust width to match button width
   },
 });

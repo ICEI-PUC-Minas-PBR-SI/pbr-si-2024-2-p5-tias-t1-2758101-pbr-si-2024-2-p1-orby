@@ -1,14 +1,14 @@
 import api from "../api/api";
 import { getToken } from "./tokenService";
 
-export const getForm = async () => {
+export const getForm = async (step, answers) => {
   try {
     const token = await getToken();
     if (!token) {
       throw new Error("Token não encontrado");
     }
 
-    const response = await api.get("/form", {
+    const response = await api.post(`/form/step/${step}`, answers, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

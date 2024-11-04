@@ -6,6 +6,7 @@ import { COLORS } from "./assets/colors";
 import { SCREENS } from "./sreens";
 import { Header } from "./components/orby-header/DefaultHeader";
 import { useAuth } from "./pages/AuthContext";
+import { FormHeader } from "./components/orby-header/FormHeader";
 
 const Stack = createNativeStackNavigator();
 
@@ -67,48 +68,158 @@ export function OrbyInitialStack() {
 const Tab = createBottomTabNavigator();
 
 export function OrbyTabs() {
-  let tabs = [
-    SCREENS.home,
-    SCREENS.form,
-    SCREENS.ranking,
-    SCREENS.map,
-    SCREENS.profile,
-  ];
-
   return (
     <Tab.Navigator>
-      {tabs.map((data) => {
-        return (
-          <Tab.Screen
-            key={data.name}
-            name={data.name}
-            component={data.component}
-            options={{
-              tabBarShowLabel: false,
-              headerShown: false,
-              tabBarIcon: ({ focused, size }) => {
-                if (focused) {
-                  return (
-                    <Ionicons
-                      size={size}
-                      color={COLORS.primary}
-                      name={data.icon}
-                    />
-                  );
-                }
+      <Tab.Screen
+        key={SCREENS.home.name}
+        name={SCREENS.home.name}
+        component={SCREENS.home.component}
+        options={{
+          tabBarShowLabel: false,
+          headerShown: false,
+          tabBarIcon: ({ focused, size }) => {
+            if (focused) {
+              return (
+                <Ionicons
+                  size={size}
+                  color={COLORS.primary}
+                  name={SCREENS.home.icon}
+                />
+              );
+            }
 
-                return (
-                  <Ionicons
-                    size={size}
-                    color={COLORS.primary}
-                    name={data.outlinedIcon}
-                  />
-                );
-              },
-            }}
-          />
-        );
-      })}
+            return (
+              <Ionicons
+                size={size}
+                color={COLORS.primary}
+                name={SCREENS.home.outlinedIcon}
+              />
+            );
+          },
+        }}
+      />
+
+      <Tab.Screen
+        key={SCREENS.form.name}
+        name={SCREENS.form.name}
+        component={SCREENS.form.component}
+        options={{
+          header: ({ navigation }) => {
+            return (
+              <FormHeader
+                leftButton={navigation.goBack}
+                title="Questionário de aptidão"
+              />
+            );
+          },
+          tabBarIcon: ({ focused, size }) => {
+            if (focused) {
+              return (
+                <Ionicons
+                  size={size}
+                  color={COLORS.primary}
+                  name={SCREENS.form.icon}
+                />
+              );
+            }
+
+            return (
+              <Ionicons
+                size={size}
+                color={COLORS.primary}
+                name={SCREENS.form.outlinedIcon}
+              />
+            );
+          },
+        }}
+      />
+
+      <Tab.Screen
+        key={SCREENS.ranking.name}
+        name={SCREENS.ranking.name}
+        component={SCREENS.ranking.component}
+        options={{
+          tabBarShowLabel: false,
+          headerShown: false,
+          tabBarIcon: ({ focused, size }) => {
+            if (focused) {
+              return (
+                <Ionicons
+                  size={size}
+                  color={COLORS.primary}
+                  name={SCREENS.ranking.icon}
+                />
+              );
+            }
+
+            return (
+              <Ionicons
+                size={size}
+                color={COLORS.primary}
+                name={SCREENS.ranking.outlinedIcon}
+              />
+            );
+          },
+        }}
+      />
+
+      <Tab.Screen
+        key={SCREENS.map.name}
+        name={SCREENS.map.name}
+        component={SCREENS.map.component}
+        options={{
+          tabBarShowLabel: false,
+          headerShown: false,
+          tabBarIcon: ({ focused, size }) => {
+            if (focused) {
+              return (
+                <Ionicons
+                  size={size}
+                  color={COLORS.primary}
+                  name={SCREENS.map.icon}
+                />
+              );
+            }
+
+            return (
+              <Ionicons
+                size={size}
+                color={COLORS.primary}
+                name={SCREENS.map.outlinedIcon}
+              />
+            );
+          },
+        }}
+      />
+
+      <Tab.Screen
+        key={SCREENS.profile.name}
+        name={SCREENS.profile.name}
+        component={SCREENS.profile.component}
+        options={{
+          tabBarShowLabel: false,
+          headerShown: false,
+          tabBarIcon: ({ focused, size }) => {
+            if (focused) {
+              return (
+                <Ionicons
+                  size={size}
+                  color={COLORS.primary}
+                  name={SCREENS.profile.icon}
+                />
+              );
+            }
+
+            return (
+              <Ionicons
+                size={size}
+                color={COLORS.primary}
+                name={SCREENS.profile.outlinedIcon}
+              />
+            );
+          },
+        }}
+      />
     </Tab.Navigator>
   );
 }
