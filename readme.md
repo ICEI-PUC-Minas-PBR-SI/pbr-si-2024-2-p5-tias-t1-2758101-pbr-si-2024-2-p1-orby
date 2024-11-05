@@ -277,13 +277,13 @@ Nesta Sprint, o objetivo foi realizar o planejamento e a execução das tarefas 
 #### Atividade Conjunta (Rodrigo, Ivan e Henrique)
 - **Implementar o processamento dos dados de aptidão:** Esta atividade envolveu a implementação de uma lógica de processamento dos dados coletados no formulário de aptidão, visando determinar a elegibilidade dos doadores para as doações. Este processo é fundamental para garantir que apenas doadores aptos participem do processo de doação.
 
-#### Ivan
+#### Rodrigo
 - **Criar painel para controle do cadastro de notícias:** Desenvolvimento de um painel que possibilita o gerenciamento completo das notícias dentro da plataforma.
 - **Criar tela para inserir os dados da notícia:** Interface para que administradores possam cadastrar novas notícias, facilitando a atualização de informações para os usuários.
 - **Criar tela para exibição das notícias:** Tela voltada para a exibição das notícias aos usuários, apresentando as atualizações mais recentes.
 - **Criar endpoint do cadastro e consulta de notícias:** Desenvolvimento de endpoints para suportar a criação e a consulta de notícias na plataforma.
 
-#### Rodrigo
+#### Ivan
 - **Criar formulário de aptidão:** Desenvolvimento de um formulário para coleta de dados e verificação de aptidão dos doadores, etapa essencial para garantir a elegibilidade para doação.
 - **Criar endpoint do formulário de aptidão:** Implementação do endpoint que permite o envio dos dados de aptidão para processamento, conectando a interface de usuário ao backend.
 
