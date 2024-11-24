@@ -311,12 +311,12 @@ Nesta Sprint, o objetivo foi realizar o planejamento e a execução das tarefas 
   - Criar tela de cadastro de usuário.
 - **Descrição:** Todas as atividades relacionadas ao cadastro e login de usuários foram finalizadas, incluindo a implementação dos endpoints e das interfaces para cadastro e autenticação.
 
-#### Processo 2: Formulário de Aptidão (Rodrigo)
+#### Processo 2: Formulário de Aptidão (Ivan)
 - **Status:** Em Desenvolvimento
 - **Atividades:**
   - Criar formulário de aptidão.
   - Criar endpoint do formulário de aptidão.
-- **Descrição:** Rodrigo está trabalhando no desenvolvimento do formulário de aptidão e seu endpoint. Esta funcionalidade é essencial para coletar dados dos doadores e verificar sua elegibilidade para doação.
+- **Descrição:** Ivan está trabalhando no desenvolvimento do formulário de aptidão e seu endpoint. Esta funcionalidade é essencial para coletar dados dos doadores e verificar sua elegibilidade para doação.
 
 #### Processo 3: Verificar Aptidão para Doação (Rodrigo, Ivan e Henrique)
 - **Status:** Em Desenvolvimento
@@ -334,13 +334,13 @@ Nesta Sprint, o objetivo foi realizar o planejamento e a execução das tarefas 
   - Criar endpoint para curtir e comentar publicações no fórum.
 - **Descrição:** Todas as atividades do fórum foram finalizadas. O processo inclui a criação das interfaces e dos endpoints necessários para permitir a interação dos usuários, incluindo a listagem de publicações, cadastro, consulta, modificações, curtidas e comentários.
 
-#### Processo 5: Cadastro e Exibição de Notícias (Ivan)
+#### Processo 5: Cadastro e Exibição de Notícias (Rodrigo)
 - **Status:** Em Desenvolvimento
 - **Atividades:**
   - Criar painel para controle do cadastro de notícias.
   - Criar tela para inserir os dados da notícia.
   - Criar tela para exibição das notícias.
   - Criar endpoint do cadastro e consulta de notícias.
-- **Descrição:** Ivan está desenvolvendo as funcionalidades de cadastro e exibição de notícias. Esse processo envolve o painel de controle, a interface para inserir notícias e o endpoint para suporte ao cadastro e consulta.
+- **Descrição:** Rodrigo está desenvolvendo as funcionalidades de cadastro e exibição de notícias. Esse processo envolve o painel de controle, a interface para inserir notícias e o endpoint para suporte ao cadastro e consulta.
 
 
