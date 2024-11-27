@@ -28,6 +28,8 @@ export function OrbyInitialStack() {
             component={OrbyHomeStack}
             options={{ headerShown: false }}
           />
+
+          
         </Stack.Group>
       ) : (
         <Stack.Group>
@@ -53,6 +55,17 @@ export function OrbyInitialStack() {
             key={SCREENS.signup.name}
             name={SCREENS.signup.name}
             component={SCREENS.signup.component}
+            options={{
+              header: ({ navigation }) => {
+                return <Header leftButton={navigation.goBack} />;
+              },
+            }}
+          />
+
+          <Stack.Screen
+            key={SCREENS.aboutus.name}
+            name={SCREENS.aboutus.name}
+            component={SCREENS.aboutus.component}
             options={{
               header: ({ navigation }) => {
                 return <Header leftButton={navigation.goBack} />;
@@ -247,6 +260,19 @@ export function OrbyHomeStack() {
           },
         }}
       />
+
+<Stack.Screen
+        key={SCREENS.aboutus.name}
+        name={SCREENS.aboutus.name}
+        component={SCREENS.aboutus.component}
+        options={{
+          header: ({ navigation }) => {
+            return <Header leftButton={navigation.goBack} />;
+          },
+        }}
+      />
+
     </Stack.Navigator>
+
   );
 }

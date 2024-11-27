@@ -7,6 +7,7 @@ import { Forum } from "./pages/forum/forum";
 import { MaintenceScreen } from "./pages/maintence/maintence";
 import { Profile } from "./pages/profile/profile";
 import { Topic } from "./pages/topic/topic";
+import { AboutUs } from "./pages/aboutus/aboutus";
 
 export const SCREENS = {
   login: {
@@ -69,4 +70,9 @@ export const SCREENS = {
     icon: null,
     outlinedIcon: null,
   },
+  aboutus: { 
+    name: "aboutus", 
+    component: AboutUs, 
+    icon: null, 
+    outlinedIcon: null }, 
 };

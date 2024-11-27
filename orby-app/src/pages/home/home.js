@@ -11,12 +11,12 @@ export function Home({ navigation }) {
         <OrbyIconButton
           label="Sobre nós"
           imageSource={require("../../assets/ic_about_us.png")} // Caminho da imagem
-          onPress={() => console.log("Sobre nós clicado")}
+          onPress={() => navigation.navigate("HomeNestedScreens",{screen: "aboutus"})}
         />
         <OrbyIconButton
           label="Notícias"
           imageSource={require("../../assets/ic_about_us.png")}
-          onPress={() => console.log("Notícias clicado")}
+          onPress={() => console.log("Patrocínios clicado")}
         />
         <OrbyIconButton
           label="Fórum"
