@@ -6,6 +6,9 @@ const UserSchema = new Schema({
   phoneNumber: { type: String, required: true },
   password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now() },
+  aptitudeStatus: { type: String, default: "" },
+  isDonor: { type: Boolean, default: null },
+  age: { type: Date, default: null },
 });
 
 export default model("users", UserSchema);
