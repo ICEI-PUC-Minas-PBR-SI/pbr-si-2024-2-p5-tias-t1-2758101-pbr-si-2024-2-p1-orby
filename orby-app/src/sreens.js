@@ -8,6 +8,9 @@ import { MaintenceScreen } from "./pages/maintence/maintence";
 import { Profile } from "./pages/profile/profile";
 import { Topic } from "./pages/topic/topic";
 import { AboutUs } from "./pages/aboutus/aboutus";
+import { Btypes } from "./pages/btypes/btypes";
+import Sponsors from "./pages/sponsors/sponsors";
+import { Questions } from "./pages/questions/questions";
 
 export const SCREENS = {
   login: {
@@ -74,5 +77,23 @@ export const SCREENS = {
     name: "aboutus", 
     component: AboutUs, 
     icon: null, 
-    outlinedIcon: null }, 
+    outlinedIcon: null },
+    
+  btypes: { 
+      name: "btypes", 
+      component: Btypes, 
+      icon: null, 
+      outlinedIcon: null },
+  
+  sponsors: {
+    name: "sponsors",
+    component: Sponsors,
+    icon: null,
+    outlinedIcon: null},
+
+    questions: {
+      name: "questions",
+      component: Questions,
+      icon: null,
+      outlinedIcon: null},
 };
