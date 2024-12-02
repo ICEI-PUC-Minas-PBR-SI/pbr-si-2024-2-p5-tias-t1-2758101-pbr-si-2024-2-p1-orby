@@ -16,6 +16,7 @@
     },
     "android": {
       "versionCode": 1,
+      "permissions": ["INTERNET"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/ic_launcher_foreground.png",
         "backgroundColor": "#FFFFFF"
@@ -27,7 +28,15 @@
     },
     "plugins": [
       "expo-font",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
     ],
     "extra": {
       "eas": {

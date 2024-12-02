@@ -8,8 +8,8 @@ const FormResult = ({ isValid, text, onButtonClick }) => {
     typeof text === "string"
       ? text
       : isValid
-      ? "Aeee, parabéns! Você está apto para fazer sua doação!"
-      : "Vishh, que pena! Infelizmente você não está apto a doar sangue no momento.";
+      ? "Parabéns! Você está apto para realizar sua doação de sangue e ajudar a salvar vidas! Agora, é só agendar uma data para fazer a sua doação."
+      : "Que pena! Infelizmente, você não está apto a doar sangue no momento. Não desanime, procure orientação e cuide bem da sua saúde!";
 
   const resultPersonImage = isValid
     ? require("../../assets/ic_happy.png")
