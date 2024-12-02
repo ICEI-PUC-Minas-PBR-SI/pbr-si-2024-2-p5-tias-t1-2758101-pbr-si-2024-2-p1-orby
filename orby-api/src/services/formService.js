@@ -1,3 +1,4 @@
+import authRepository from "../repositories/authRepository.js";
 import formRepository from "../repositories/formRepository.js";
 
 const steps = {
@@ -120,76 +121,92 @@ const steps = {
 async function processStep(nextStep, userId, data) {
   var response = {};
 
-  try {
-    switch (parseInt(nextStep)) {
-      case 1:
-        response = {
-          isAble: true,
-          invalidationMassage: "",
-          nextStep: 2,
-          hasNextStep: true,
-          steps: Object.keys(steps).length,
-          questions: steps.first,
-          nextButton: "Próxima etapa",
-        };
-        break;
+  const user = await authRepository.findById(userId);
 
-      case 2:
-        var questions = steps.second;
+  console.log(user.aptitudeStatus?.trim());
 
-        if (
-          data
-            .find((element) => element.questionId == "1")
-            .answer.includes("Masculino")
-        ) {
-          questions = steps.second.filter(
-            (question) => question.questionId !== "6"
-          );
-        } else {
-          questions = steps.second;
-        }
+  if (user.aptitudeStatus?.trim()) {
+    response = {
+      isAble: user.aptitudeStatus === "apto",
+      invalidationMassage: "",
+      nextStep: 1,
+      hasNextStep: false,
+      steps: Object.keys(steps).length,
+      questions: steps.first,
+      nextButton: "Próxima etapa",
+    };
+  } else {
+    try {
+      switch (parseInt(nextStep)) {
+        case 1:
+          response = {
+            isAble: true,
+            invalidationMassage: "",
+            nextStep: 2,
+            hasNextStep: true,
+            steps: Object.keys(steps).length,
+            questions: steps.first,
+            nextButton: "Próxima etapa",
+          };
+          break;
 
-        await saveUserAnswers(userId, data);
+        case 2:
+          var questions = steps.second;
 
-        response = {
-          isAble: validateFirstStep(data),
-          invalidationMassage: "",
-          nextStep: 3,
-          hasNextStep: true,
-          steps: Object.keys(steps).length,
-          questions: questions,
-          nextButton: "Finalizar",
-        };
-        break;
+          if (
+            data
+              .find((element) => element.questionId == "1")
+              .answer.includes("Masculino")
+          ) {
+            questions = steps.second.filter(
+              (question) => question.questionId !== "6"
+            );
+          } else {
+            questions = steps.second;
+          }
 
-      default:
-        const validation = validateSecondStep(data);
+          await saveUserAnswers(userId, data);
 
-        await saveUserAnswers(userId, data);
+          response = {
+            isAble: await validateFirstStep(data, userId),
+            invalidationMassage: "",
+            nextStep: 3,
+            hasNextStep: true,
+            steps: Object.keys(steps).length,
+            questions: questions,
+            nextButton: "Finalizar",
+          };
+          break;
 
-        response = {
-          isAble: validation.isValid,
-          invalidationMassage: validation.message,
-          nextStep: null,
-          hasNextStep: false,
-          steps: Object.keys(steps).length,
-          questions: [],
-          nextButton: null,
-        };
-        break;
+        default:
+          const validation = await validateSecondStep(data, userId);
+
+          await saveUserAnswers(userId, data);
+
+          response = {
+            isAble: validation.isValid,
+            invalidationMassage: validation.message,
+            nextStep: null,
+            hasNextStep: false,
+            steps: Object.keys(steps).length,
+            questions: [],
+            nextButton: null,
+          };
+          break;
+      }
+    } catch (error) {
+      console.error("Erro ao processar etapa:", error);
+      res
+        .status(500)
+        .json({ message: "Erro ao processar etapa", error: error.message });
+      return;
     }
-  } catch (error) {
-    console.error("Erro ao processar etapa:", error);
-    res
-      .status(500)
-      .json({ message: "Erro ao processar etapa", error: error.message });
-    return;
   }
 
   return response;
 }
 
-const validateFirstStep = (answers) => {
+const validateFirstStep = async (answers, userId) => {
   const age = answers.find((element) => element.questionId == "2").answer;
   const height = answers.find((element) => element.questionId == "3").answer;
   const conditions = answers.find(
@@ -200,43 +217,80 @@ const validateFirstStep = (answers) => {
   const isValidHeight = height >= 50;
   const isValidHealthCondition = conditions.length == 0;
 
+  await formRepository.updateUserAge(age, userId);
+
+  let aptitudeStatus = "";
+  if (!isValidAge) {
+    aptitudeStatus = "idade";
+  } else if (!isValidHeight) {
+    aptitudeStatus = "peso";
+  } else if (!isValidHealthCondition) {
+    aptitudeStatus = "saude";
+  }
+
+  if (aptitudeStatus) {
+    await formRepository.updateUserAptitudeStatus(aptitudeStatus, userId);
+  }
+
   return isValidAge && isValidHeight && isValidHealthCondition;
 };
 
-const validateSecondStep = (answers) => {
+const validateSecondStep = async (answers, userId) => {
   console.log(answers);
 
   const answerElement = answers.find((element) => element.questionId == "5");
   const answer = answerElement ? answerElement.answer : ""; // Define como string vazia se não houver resposta
   const dateMatch = answer.match(/\b\d{2}\/\d{2}\/\d{4}\b/);
 
-  // Se a data não for encontrada, podemos definir a inputDate como uma data padrão ou não utilizá-la.
   let inputDate;
   if (dateMatch) {
     const [day, month, year] = dateMatch[0].split("/");
     inputDate = new Date(year, month - 1, day);
+    await formRepository.updateUserDonorState(true, userId);
   } else {
-    inputDate = null; // Ou defina uma data padrão, se necessário
+    inputDate = null;
+    await formRepository.updateUserDonorState(false, userId);
   }
 
   const isPregnantElement = answers.find(
     (element) => element.questionId == "6"
   );
   const isPregnant =
-    isPregnantElement && isPregnantElement.answer.includes("Sim");
+    isPregnantElement && isPregnantElement.answer.toLowerCase().includes("sim");
 
   const conditionsElement = answers.find(
     (element) => element.questionId == "7"
   );
   const conditions = conditionsElement ? conditionsElement.answer : "";
 
-  const isValidAge = inputDate ? !isOlderThan(inputDate, 3) : true; // Assume que, sem data, é válido
+  const isValidAge = inputDate ? !isOlderThan(inputDate, 3) : true;
   const isValidPregnacyState = !isPregnant;
   const isValidMedicalProcedure = conditions.length === 0;
 
-  const invalidationMessage = !isValidMedicalProcedure
-    ? "Você não está apto a doar devido a procedimento médico realizado dentro do prazo de 6 meses. Você será notificado após o período."
+  let aptitudeStatus = "";
+  if (!isValidAge) {
+    aptitudeStatus = "tempo-doacao";
+  } else if (!isValidPregnacyState) {
+    aptitudeStatus = "gravidez";
+  } else if (!isValidMedicalProcedure) {
+    aptitudeStatus = "procedimento-medico";
+  } else {
+    aptitudeStatus = "apto";
+  }
+
+  if (aptitudeStatus) {
+    await formRepository.updateUserAptitudeStatus(aptitudeStatus, userId);
+  }
+
+  const invalidationMessage = !isValidAge
+    ? "A data de doação é muito recente, você não está apto."
+    : !isValidPregnacyState
+    ? "Você não pode doar enquanto estiver grávida."
+    : !isValidMedicalProcedure
+    ? "Você não está apto a doar devido a procedimento médico realizado dentro do prazo de 6 meses."
     : "";
+
+  console.log(isValidAge && isValidPregnacyState && isValidMedicalProcedure);
 
   return {
     isValid: isValidAge && isValidPregnacyState && isValidMedicalProcedure,
@@ -263,7 +317,7 @@ const saveUserAnswers = async (userId, questions) => {
   }));
 
   try {
-    await formRepository.saveUserAnswers(answerDocs);
+    await formRepository.saveUserAnswers(userId, answerDocs);
   } catch (error) {
     console.error("Erro ao salvar as respostas no serviço:", error);
   }
