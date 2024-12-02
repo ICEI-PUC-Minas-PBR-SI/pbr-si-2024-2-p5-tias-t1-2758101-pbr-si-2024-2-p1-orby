@@ -73,27 +73,31 @@ export const SCREENS = {
     icon: null,
     outlinedIcon: null,
   },
-  aboutus: { 
-    name: "aboutus", 
-    component: AboutUs, 
-    icon: null, 
-    outlinedIcon: null },
-    
-  btypes: { 
-      name: "btypes", 
-      component: Btypes, 
-      icon: null, 
-      outlinedIcon: null },
-  
+  aboutus: {
+    name: "aboutus",
+    component: AboutUs,
+    icon: null,
+    outlinedIcon: null,
+  },
+
+  btypes: {
+    name: "btypes",
+    component: Btypes,
+    icon: null,
+    outlinedIcon: null,
+  },
+
   sponsors: {
     name: "sponsors",
     component: Sponsors,
     icon: null,
-    outlinedIcon: null},
+    outlinedIcon: null,
+  },
 
-    questions: {
-      name: "questions",
-      component: Questions,
-      icon: null,
-      outlinedIcon: null},
+  questions: {
+    name: "questions",
+    component: Questions,
+    icon: null,
+    outlinedIcon: null,
+  },
 };

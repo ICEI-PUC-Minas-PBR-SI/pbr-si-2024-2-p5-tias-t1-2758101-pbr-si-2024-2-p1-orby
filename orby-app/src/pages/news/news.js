@@ -1,36 +1,20 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { COLORS } from "../../assets/colors";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, View } from "react-native";
 import React from "react";
+import OrbyLogo from "../../components/orby_logo/OrbyLogo";
 
 export function News({ navigation }) {
   return (
-    <SafeAreaView>
-      <StatusBar style="auto" />
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("login", { title: "asdasd" });
-        }}
-      >
-        <Text style={styles.outlined_button}>Entrar</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <OrbyLogo title="Em desenvolvimento..." />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    backgroundColor: "#fff",
     justifyContent: "center",
-  },
-  outlined_button: {
-    color: COLORS.primary,
-    FontFace: "Jaldi_700Bold",
-    fontSize: 20,
-    fontWeight: "400",
-    textAlign: "right",
-    marginEnd: 24,
+    padding: 24,
   },
 });

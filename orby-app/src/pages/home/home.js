@@ -11,32 +11,32 @@ export function Home({ navigation }) {
         <OrbyIconButton
           label="Sobre nós"
           imageSource={require("../../assets/ic_about_us.png")} // Caminho da imagem
-          onPress={() => navigation.navigate("HomeNestedScreens",{screen: "aboutus"})}
+          onPress={() => navigation.navigate("aboutus")}
         />
         <OrbyIconButton
           label="Notícias"
           imageSource={require("../../assets/ic_about_us.png")}
-          onPress={() => console.log("Noticias clicado")}
+          onPress={() => navigation.navigate("news")}
         />
         <OrbyIconButton
           label="Fórum"
           imageSource={require("../../assets/ic_about_us.png")}
-          onPress={() => navigation.navigate("HomeNestedScreens")}
+          onPress={() => navigation.navigate("forum")}
         />
         <OrbyIconButton
           label="Patrocínios"
           imageSource={require("../../assets/ic_about_us.png")}
-          onPress={() => navigation.navigate("HomeNestedScreens",{screen: "sponsors"})}
+          onPress={() => navigation.navigate("sponsors")}
         />
         <OrbyIconButton
           label="Tipos Sanguíneos"
           imageSource={require("../../assets/ic_about_us.png")}
-          onPress={() => navigation.navigate("HomeNestedScreens",{screen: "btypes"})}
+          onPress={() => navigation.navigate("btypes")}
         />
         <OrbyIconButton
           label="Dúvidas"
           imageSource={require("../../assets/ic_about_us.png")}
-          onPress={() => navigation.navigate("HomeNestedScreens",{screen: "questions"})}
+          onPress={() => navigation.navigate("questions")}
         />
       </View>
     </View>

@@ -14,32 +14,17 @@ export function OrbyInitialStack() {
   const { isLoggedIn } = useAuth();
 
   return (
-    <Stack.Navigator initialRouteName="news">
+    <Stack.Navigator initialRouteName="login">
       {isLoggedIn ? (
         <Stack.Group>
-          <Stack.Screen
-            name="Home"
-            component={OrbyTabs}
-            options={{ headerShown: false }}
-          />
-
           <Stack.Screen
             name="HomeNestedScreens"
             component={OrbyHomeStack}
             options={{ headerShown: false }}
           />
-
-          
         </Stack.Group>
       ) : (
         <Stack.Group>
-          <Stack.Screen
-            key={SCREENS.news.name}
-            name={SCREENS.news.name}
-            component={SCREENS.news.component}
-            options={{ headerShown: false }}
-          />
-
           <Stack.Screen
             key={SCREENS.login.name}
             name={SCREENS.login.name}
@@ -84,27 +69,27 @@ export function OrbyInitialStack() {
             }}
           />
 
-            <Stack.Screen
-              key={SCREENS.sponsors.name}
-              name={SCREENS.sponsors.name}
-              component={SCREENS.sponsors.component}
-              options={{
-                header: ({ navigation }) => {
-                  return <Header leftButton={navigation.goBack} />;
-                },
-              }}
-            />
+          <Stack.Screen
+            key={SCREENS.sponsors.name}
+            name={SCREENS.sponsors.name}
+            component={SCREENS.sponsors.component}
+            options={{
+              header: ({ navigation }) => {
+                return <Header leftButton={navigation.goBack} />;
+              },
+            }}
+          />
 
-              <Stack.Screen
-              key={SCREENS.questions.name}
-              name={SCREENS.questions.name}
-              component={SCREENS.questions.component}
-              options={{
-                header: ({ navigation }) => {
-                  return <Header leftButton={navigation.goBack} />;
-                },
-              }}
-            />
+          <Stack.Screen
+            key={SCREENS.questions.name}
+            name={SCREENS.questions.name}
+            component={SCREENS.questions.component}
+            options={{
+              header: ({ navigation }) => {
+                return <Header leftButton={navigation.goBack} />;
+              },
+            }}
+          />
         </Stack.Group>
       )}
     </Stack.Navigator>
@@ -272,7 +257,13 @@ export function OrbyTabs() {
 
 export function OrbyHomeStack() {
   return (
-    <Stack.Navigator initialRouteName="forum">
+    <Stack.Navigator initialRouteName="home">
+      <Stack.Screen
+        key={SCREENS.home.name}
+        name={SCREENS.home.name}
+        component={OrbyTabs}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         key={SCREENS.forum.name}
         name={SCREENS.forum.name}
@@ -335,8 +326,16 @@ export function OrbyHomeStack() {
           },
         }}
       />
-
+      <Stack.Screen
+        key={SCREENS.news.name}
+        name={SCREENS.news.name}
+        component={SCREENS.news.component}
+        options={{
+          header: ({ navigation }) => {
+            return <Header leftButton={navigation.goBack} />;
+          },
+        }}
+      />
     </Stack.Navigator>
-
   );
 }
