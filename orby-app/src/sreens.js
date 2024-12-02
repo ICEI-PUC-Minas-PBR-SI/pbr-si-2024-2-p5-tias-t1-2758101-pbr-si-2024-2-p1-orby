@@ -11,6 +11,7 @@ import { AboutUs } from "./pages/aboutus/aboutus";
 import { Btypes } from "./pages/btypes/btypes";
 import Sponsors from "./pages/sponsors/sponsors";
 import { Questions } from "./pages/questions/questions";
+import Noticias from "./pages/noticias/noticias";
 
 export const SCREENS = {
   login: {
@@ -96,4 +97,10 @@ export const SCREENS = {
       component: Questions,
       icon: null,
       outlinedIcon: null},
+    
+      noticias: {
+        name: "noticias",
+        component: Noticias,
+        icon: null,
+        outlinedIcon: null},
 };

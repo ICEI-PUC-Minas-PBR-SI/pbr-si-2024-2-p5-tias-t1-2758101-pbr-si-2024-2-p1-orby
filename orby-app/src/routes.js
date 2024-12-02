@@ -95,10 +95,21 @@ export function OrbyInitialStack() {
               }}
             />
 
-              <Stack.Screen
+            <Stack.Screen
               key={SCREENS.questions.name}
               name={SCREENS.questions.name}
               component={SCREENS.questions.component}
+              options={{
+                header: ({ navigation }) => {
+                  return <Header leftButton={navigation.goBack} />;
+                },
+              }}
+            />
+
+            <Stack.Screen
+              key={SCREENS.noticias.name}
+              name={SCREENS.noticias.name}
+              component={SCREENS.noticias.component}
               options={{
                 header: ({ navigation }) => {
                   return <Header leftButton={navigation.goBack} />;
@@ -329,6 +340,17 @@ export function OrbyHomeStack() {
         key={SCREENS.questions.name}
         name={SCREENS.questions.name}
         component={SCREENS.questions.component}
+        options={{
+          header: ({ navigation }) => {
+            return <Header leftButton={navigation.goBack} />;
+          },
+        }}
+      />
+
+      <Stack.Screen
+        key={SCREENS.noticias.name}
+        name={SCREENS.noticias.name}
+        component={SCREENS.noticias.component}
         options={{
           header: ({ navigation }) => {
             return <Header leftButton={navigation.goBack} />;

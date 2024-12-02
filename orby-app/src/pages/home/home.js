@@ -16,7 +16,7 @@ export function Home({ navigation }) {
         <OrbyIconButton
           label="Notícias"
           imageSource={require("../../assets/ic_about_us.png")}
-          onPress={() => console.log("Noticias clicado")}
+          onPress={() => navigation.navigate("HomeNestedScreens",{screen: "noticias"})}
         />
         <OrbyIconButton
           label="Fórum"
