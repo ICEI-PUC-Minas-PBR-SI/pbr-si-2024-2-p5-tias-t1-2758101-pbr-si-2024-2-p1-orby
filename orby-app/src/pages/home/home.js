@@ -11,12 +11,12 @@ export function Home({ navigation }) {
         <OrbyIconButton
           label="Sobre nós"
           imageSource={require("../../assets/ic_about_us.png")} // Caminho da imagem
-          onPress={() => console.log("Sobre nós clicado")}
+          onPress={() => navigation.navigate("HomeNestedScreens",{screen: "aboutus"})}
         />
         <OrbyIconButton
           label="Notícias"
           imageSource={require("../../assets/ic_about_us.png")}
-          onPress={() => console.log("Notícias clicado")}
+          onPress={() => console.log("Noticias clicado")}
         />
         <OrbyIconButton
           label="Fórum"
@@ -26,17 +26,17 @@ export function Home({ navigation }) {
         <OrbyIconButton
           label="Patrocínios"
           imageSource={require("../../assets/ic_about_us.png")}
-          onPress={() => console.log("Patrocínios clicado")}
+          onPress={() => navigation.navigate("HomeNestedScreens",{screen: "sponsors"})}
         />
         <OrbyIconButton
           label="Tipos Sanguíneos"
           imageSource={require("../../assets/ic_about_us.png")}
-          onPress={() => console.log("Tipos Sanguíneos clicado")}
+          onPress={() => navigation.navigate("HomeNestedScreens",{screen: "btypes"})}
         />
         <OrbyIconButton
           label="Dúvidas"
           imageSource={require("../../assets/ic_about_us.png")}
-          onPress={() => console.log("Dúvidas clicado")}
+          onPress={() => navigation.navigate("HomeNestedScreens",{screen: "questions"})}
         />
       </View>
     </View>

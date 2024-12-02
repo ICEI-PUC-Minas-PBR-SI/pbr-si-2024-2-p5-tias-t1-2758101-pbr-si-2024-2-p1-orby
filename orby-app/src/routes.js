@@ -28,6 +28,8 @@ export function OrbyInitialStack() {
             component={OrbyHomeStack}
             options={{ headerShown: false }}
           />
+
+          
         </Stack.Group>
       ) : (
         <Stack.Group>
@@ -59,6 +61,50 @@ export function OrbyInitialStack() {
               },
             }}
           />
+
+          <Stack.Screen
+            key={SCREENS.aboutus.name}
+            name={SCREENS.aboutus.name}
+            component={SCREENS.aboutus.component}
+            options={{
+              header: ({ navigation }) => {
+                return <Header leftButton={navigation.goBack} />;
+              },
+            }}
+          />
+
+          <Stack.Screen
+            key={SCREENS.btypes.name}
+            name={SCREENS.btypes.name}
+            component={SCREENS.btypes.component}
+            options={{
+              header: ({ navigation }) => {
+                return <Header leftButton={navigation.goBack} />;
+              },
+            }}
+          />
+
+            <Stack.Screen
+              key={SCREENS.sponsors.name}
+              name={SCREENS.sponsors.name}
+              component={SCREENS.sponsors.component}
+              options={{
+                header: ({ navigation }) => {
+                  return <Header leftButton={navigation.goBack} />;
+                },
+              }}
+            />
+
+              <Stack.Screen
+              key={SCREENS.questions.name}
+              name={SCREENS.questions.name}
+              component={SCREENS.questions.component}
+              options={{
+                header: ({ navigation }) => {
+                  return <Header leftButton={navigation.goBack} />;
+                },
+              }}
+            />
         </Stack.Group>
       )}
     </Stack.Navigator>
@@ -247,6 +293,50 @@ export function OrbyHomeStack() {
           },
         }}
       />
+
+      <Stack.Screen
+        key={SCREENS.aboutus.name}
+        name={SCREENS.aboutus.name}
+        component={SCREENS.aboutus.component}
+        options={{
+          header: ({ navigation }) => {
+            return <Header leftButton={navigation.goBack} />;
+          },
+        }}
+      />
+      <Stack.Screen
+        key={SCREENS.btypes.name}
+        name={SCREENS.btypes.name}
+        component={SCREENS.btypes.component}
+        options={{
+          header: ({ navigation }) => {
+            return <Header leftButton={navigation.goBack} />;
+          },
+        }}
+      />
+
+      <Stack.Screen
+        key={SCREENS.sponsors.name}
+        name={SCREENS.sponsors.name}
+        component={SCREENS.sponsors.component}
+        options={{
+          header: ({ navigation }) => {
+            return <Header leftButton={navigation.goBack} />;
+          },
+        }}
+      />
+      <Stack.Screen
+        key={SCREENS.questions.name}
+        name={SCREENS.questions.name}
+        component={SCREENS.questions.component}
+        options={{
+          header: ({ navigation }) => {
+            return <Header leftButton={navigation.goBack} />;
+          },
+        }}
+      />
+
     </Stack.Navigator>
+
   );
 }
