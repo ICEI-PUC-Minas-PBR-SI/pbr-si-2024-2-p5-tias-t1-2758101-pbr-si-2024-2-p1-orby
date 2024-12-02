@@ -11,6 +11,7 @@ export function Form({ navigation }) {
   const [formData, setFormData] = useState(null);
   const [isFormFinished, setIsFormFinished] = useState(false); // Adiciona estado para saber se o form terminou
   const [isValid, setIsValid] = useState(true); // Estado para definir se o resultado é válido ou não
+  const [invalidationMassage, setInvalidationMassage] = useState("");
 
   const isFocused = useIsFocused();
 
@@ -53,9 +54,7 @@ export function Form({ navigation }) {
       <FormResult
         isValid={isValid}
         text={
-          isValid
-            ? "Parabéns! Você está apto para doar."
-            : "Infelizmente você não está apto para doar."
+          isValid ? "Parabéns! Você está apto para doar." : invalidationMassage //"Infelizmente você não está apto para doar."
         }
         onButtonClick={() => {
           setIsFormFinished(false);

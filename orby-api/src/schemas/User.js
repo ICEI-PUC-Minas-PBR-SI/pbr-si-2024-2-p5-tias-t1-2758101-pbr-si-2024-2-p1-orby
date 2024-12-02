@@ -8,7 +8,7 @@ const UserSchema = new Schema({
   createdAt: { type: Date, default: Date.now() },
   aptitudeStatus: { type: String, default: "" },
   isDonor: { type: Boolean, default: null },
-  age: { type: Date, default: null },
+  age: { type: String, default: null },
 });
 
 export default model("users", UserSchema);

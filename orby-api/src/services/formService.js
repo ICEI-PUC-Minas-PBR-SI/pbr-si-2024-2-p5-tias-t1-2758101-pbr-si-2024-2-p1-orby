@@ -1,3 +1,4 @@
+import authRepository from "../repositories/authRepository.js";
 import formRepository from "../repositories/formRepository.js";
 
 const steps = {
@@ -120,70 +121,86 @@ const steps = {
 async function processStep(nextStep, userId, data) {
   var response = {};
 
-  try {
-    switch (parseInt(nextStep)) {
-      case 1:
-        response = {
-          isAble: true,
-          invalidationMassage: "",
-          nextStep: 2,
-          hasNextStep: true,
-          steps: Object.keys(steps).length,
-          questions: steps.first,
-          nextButton: "Próxima etapa",
-        };
-        break;
+  const user = await authRepository.findById(userId);
 
-      case 2:
-        var questions = steps.second;
+  console.log(user.aptitudeStatus?.trim());
 
-        if (
-          data
-            .find((element) => element.questionId == "1")
-            .answer.includes("Masculino")
-        ) {
-          questions = steps.second.filter(
-            (question) => question.questionId !== "6"
-          );
-        } else {
-          questions = steps.second;
-        }
+  if (user.aptitudeStatus?.trim()) {
+    response = {
+      isAble: user.aptitudeStatus === "apto",
+      invalidationMassage: "",
+      nextStep: 1,
+      hasNextStep: false,
+      steps: Object.keys(steps).length,
+      questions: steps.first,
+      nextButton: "Próxima etapa",
+    };
+  } else {
+    try {
+      switch (parseInt(nextStep)) {
+        case 1:
+          response = {
+            isAble: true,
+            invalidationMassage: "",
+            nextStep: 2,
+            hasNextStep: true,
+            steps: Object.keys(steps).length,
+            questions: steps.first,
+            nextButton: "Próxima etapa",
+          };
+          break;
 
-        await saveUserAnswers(userId, data);
+        case 2:
+          var questions = steps.second;
 
-        response = {
-          isAble: await validateFirstStep(data, userId),
-          invalidationMassage: "",
-          nextStep: 3,
-          hasNextStep: true,
-          steps: Object.keys(steps).length,
-          questions: questions,
-          nextButton: "Finalizar",
-        };
-        break;
+          if (
+            data
+              .find((element) => element.questionId == "1")
+              .answer.includes("Masculino")
+          ) {
+            questions = steps.second.filter(
+              (question) => question.questionId !== "6"
+            );
+          } else {
+            questions = steps.second;
+          }
 
-      default:
-        const validation = validateSecondStep(data, userId);
+          await saveUserAnswers(userId, data);
 
-        await saveUserAnswers(userId, data);
+          response = {
+            isAble: await validateFirstStep(data, userId),
+            invalidationMassage: "",
+            nextStep: 3,
+            hasNextStep: true,
+            steps: Object.keys(steps).length,
+            questions: questions,
+            nextButton: "Finalizar",
+          };
+          break;
 
-        response = {
-          isAble: validation.isValid,
-          invalidationMassage: validation.message,
-          nextStep: null,
-          hasNextStep: false,
-          steps: Object.keys(steps).length,
-          questions: [],
-          nextButton: null,
-        };
-        break;
+        default:
+          const validation = await validateSecondStep(data, userId);
+
+          await saveUserAnswers(userId, data);
+
+          response = {
+            isAble: validation.isValid,
+            invalidationMassage: validation.message,
+            nextStep: null,
+            hasNextStep: false,
+            steps: Object.keys(steps).length,
+            questions: [],
+            nextButton: null,
+          };
+          break;
+      }
+    } catch (error) {
+      console.error("Erro ao processar etapa:", error);
+      res
+        .status(500)
+        .json({ message: "Erro ao processar etapa", error: error.message });
+      return;
     }
-  } catch (error) {
-    console.error("Erro ao processar etapa:", error);
-    res
-      .status(500)
-      .json({ message: "Erro ao processar etapa", error: error.message });
-    return;
   }
 
   return response;
@@ -273,6 +290,8 @@ const validateSecondStep = async (answers, userId) => {
     ? "Você não está apto a doar devido a procedimento médico realizado dentro do prazo de 6 meses."
     : "";
 
+  console.log(isValidAge && isValidPregnacyState && isValidMedicalProcedure);
+
   return {
     isValid: isValidAge && isValidPregnacyState && isValidMedicalProcedure,
     message: invalidationMessage,
@@ -298,7 +317,7 @@ const saveUserAnswers = async (userId, questions) => {
   }));
 
   try {
-    await formRepository.saveUserAnswers(answerDocs);
+    await formRepository.saveUserAnswers(userId, answerDocs);
   } catch (error) {
     console.error("Erro ao salvar as respostas no serviço:", error);
   }

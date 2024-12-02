@@ -1,14 +1,23 @@
 import UserQuestions from "../schemas/UserQuestions.js";
 import UserSchema from "../schemas/User.js";
 
-async function saveUserAnswers(answers) {
+async function saveUserAnswers(userId, answers) {
   console.log("answers: ", answers);
   try {
-    await UserQuestions.updateOne(answers);
-    console.log("Dados inseridos com sucesso.");
+    for (const answer of answers) {
+      const { questionId, answer: userAnswer } = answer;
+
+      await UserQuestions.updateOne(
+        { userId, questionId },
+        { $set: { answer: userAnswer } },
+        { upsert: true }
+      );
+    }
+
+    console.log("Dados inseridos/atualizados com sucesso.");
   } catch (error) {
     console.error("Erro ao inserir respostas:", error);
-    throw new Error("Falha ao salvar respostas."); // Lançar um novo erro ou tratar a falha
+    throw new Error("Falha ao salvar respostas.");
   }
 }
 
@@ -16,7 +25,7 @@ async function updateUserAge(age, userId) {
   try {
     await UserSchema.findOneAndUpdate(
       { _id: userId },
-      { age },
+      { $set: { age } },
       {
         new: true,
         runValidators: true,
@@ -34,7 +43,7 @@ async function updateUserAptitudeStatus(aptitudeStatus, userId) {
   try {
     await UserSchema.findOneAndUpdate(
       { _id: userId },
-      { aptitudeStatus },
+      { $set: { aptitudeStatus } },
       {
         new: true,
         runValidators: true,
@@ -52,7 +61,7 @@ async function updateUserDonorState(isDonor, userId) {
   try {
     await UserSchema.findOneAndUpdate(
       { _id: userId },
-      { isDonor },
+      { $set: { isDonor } },
       {
         new: true,
         runValidators: true,
