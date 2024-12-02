@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image, ScrollView } from "react-native";
-import styles from "./news.style";
+import styles from "./news.style.js";
 
 export function News({ navigation }) {
   return (
@@ -55,12 +55,3 @@ export function News({ navigation }) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    padding: 24,
-  },
-});
