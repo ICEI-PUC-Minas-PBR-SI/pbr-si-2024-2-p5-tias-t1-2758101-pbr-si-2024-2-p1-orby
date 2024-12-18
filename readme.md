@@ -343,4 +343,7 @@ Nesta Sprint, o objetivo foi realizar o planejamento e a execução das tarefas 
   - Criar endpoint do cadastro e consulta de notícias.
 - **Descrição:** Rodrigo está desenvolvendo as funcionalidades de cadastro e exibição de notícias. Esse processo envolve o painel de controle, a interface para inserir notícias e o endpoint para suporte ao cadastro e consulta.
 
-
+## Links para a aplicação frontend
+- O código da aplicação frontend se encontra hospedado neste mesmo repositório na pasta orby-app.
+- Através do link a seguir é possível realizar o download da aplicação disponível para dispositivos android;
+- https://drive.google.com/file/d/1F3LReKQ9Ykrdv15FITJf4HgTCN81Ldng/view?usp=sharing
